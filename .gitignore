@@ -1,0 +1,7 @@
+### FFmpeg shared & dev
+ffmpeg/
+
+*.pro.user
+
+### VS Code ###
+.vscode/

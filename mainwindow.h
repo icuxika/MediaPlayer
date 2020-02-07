@@ -25,6 +25,7 @@
 #include "videothreadutil.h"
 #include "videoplaywidget.h"
 #include "demuxthreadutil.h"
+#include "progressbarslider.h"
 
 class MainWindow : public QMainWindow
 {
@@ -56,7 +57,7 @@ public:
     // 音视频控制线程
     DemuxThreadUtil demuxThreadUtil;
     // 进度条
-    QSlider* progressBar = nullptr;
+    ProgressBarSlider* progressBar = nullptr;
     // 打开文件按钮
     QPushButton* openFileButton = nullptr;
     // 播放和暂停按钮

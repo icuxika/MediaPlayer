@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget* parent)
     QAction* openAction = new QAction(QString::fromLocal8Bit("打开"), this);
     fileMenu->addAction(openAction);
     // 状态栏部分--------------------------------------------------
-    progressBar = new QSlider(this);
+    progressBar = new ProgressBarSlider(this);
     progressBar->setOrientation(Qt::Horizontal);
     progressBar->setMinimum(0);
     progressBar->setMaximum(1000);

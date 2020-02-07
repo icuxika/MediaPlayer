@@ -115,6 +115,10 @@ AVPacket* DemuxUtil::ReadOnlyVideo()
     for (int i = 0; i < 40; i++)
     {
         pkt = Read();
+        if (!pkt)
+        {
+            break;
+        }
         if (pkt->stream_index == videoStream)
         {
             break;

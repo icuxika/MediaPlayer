@@ -26,6 +26,7 @@ SOURCES += \
     demuxutil.cpp \
     main.cpp \
     mainwindow.cpp \
+    progressbarslider.cpp \
     resampleutil.cpp \
     videoplaywidget.cpp \
     videothreadutil.cpp
@@ -38,6 +39,7 @@ HEADERS += \
     demuxthreadutil.h \
     demuxutil.h \
     mainwindow.h \
+    progressbarslider.h \
     resampleutil.h \
     videoplaywidget.h \
     videothreadutil.h

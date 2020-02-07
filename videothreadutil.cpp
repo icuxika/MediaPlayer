@@ -8,6 +8,7 @@ VideoThreadUtil::~VideoThreadUtil()
 {
 }
 
+// 视频播放
 void VideoThreadUtil::run()
 {
     while (!isExit)
@@ -53,6 +54,7 @@ void VideoThreadUtil::run()
     }
 }
 
+// 初始化
 bool VideoThreadUtil::Open(AVCodecParameters* codec_param, VideoPlayWidget* widget, int width, int height)
 {
     if (!codec_param)
@@ -77,6 +79,7 @@ bool VideoThreadUtil::Open(AVCodecParameters* codec_param, VideoPlayWidget* widg
     return result;
 }
 
+// 快进后刷新显示画面
 bool VideoThreadUtil::RepaintSeekPts(AVPacket* pkt, long long seekPts)
 {
     videoLock.lock();
@@ -109,6 +112,7 @@ bool VideoThreadUtil::RepaintSeekPts(AVPacket* pkt, long long seekPts)
     return false;
 }
 
+// 设置暂停
 void VideoThreadUtil::SetPause(bool isPause)
 {
     qDebug() << QString::fromLocal8Bit("VideoThreadUtil::SetPause") << isPause;

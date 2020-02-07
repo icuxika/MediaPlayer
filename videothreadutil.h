@@ -13,13 +13,18 @@ public:
 
     virtual ~VideoThreadUtil();
 
+    // 视频播放
     void run() override;
 
+    // 初始化
     virtual bool Open(AVCodecParameters* codec_param, VideoPlayWidget* widget, int width, int height);
 
+    // 快进后刷新显示画面
     virtual bool RepaintSeekPts(AVPacket* pkt, long long seekPts);
 
+    // 设置暂停
     virtual void SetPause(bool isPause);
+
     bool isPause = false;
 
     long long sync_pts = 0;

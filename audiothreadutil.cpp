@@ -18,6 +18,7 @@ AudioThreadUtil::~AudioThreadUtil()
     wait();
 }
 
+// 音频播放
 void AudioThreadUtil::run()
 {
     unsigned char* pcm = new unsigned char[1024 * 1024 * 10];
@@ -72,6 +73,7 @@ void AudioThreadUtil::run()
     delete [] pcm;
 }
 
+// 初始化
 bool AudioThreadUtil::Open(AVCodecParameters* codec_param)
 {
     if(!codec_param)
@@ -101,6 +103,7 @@ bool AudioThreadUtil::Open(AVCodecParameters* codec_param)
     return result;
 }
 
+// 清理
 void AudioThreadUtil::Clear()
 {
     DecodeThreadUtil::Clear();
@@ -113,6 +116,7 @@ void AudioThreadUtil::Clear()
 //    audioLock.unlock();
 }
 
+// 关闭
 void AudioThreadUtil::Close()
 {
     DecodeThreadUtil::Close();
@@ -133,6 +137,7 @@ void AudioThreadUtil::Close()
     }
 }
 
+// 设置暂停
 void AudioThreadUtil::SetPause(bool isPause)
 {
     qDebug() << QString::fromLocal8Bit("AudioThreadUtil::SetPause") << isPause;

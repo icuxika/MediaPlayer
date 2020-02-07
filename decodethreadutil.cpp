@@ -14,6 +14,7 @@ DecodeThreadUtil::~DecodeThreadUtil()
     wait();
 }
 
+// 推送AVPacket* pkt到队列
 void DecodeThreadUtil::Push(AVPacket* pkt)
 {
     if (!pkt)
@@ -36,6 +37,7 @@ void DecodeThreadUtil::Push(AVPacket* pkt)
     }
 }
 
+// 从队列中取出AVPacket* pkt
 AVPacket* DecodeThreadUtil::PopPacket()
 {
     lock.lock();
@@ -50,6 +52,7 @@ AVPacket* DecodeThreadUtil::PopPacket()
     return pkt;
 }
 
+// 清理
 void DecodeThreadUtil::Clear()
 {
     lock.lock();
@@ -63,6 +66,7 @@ void DecodeThreadUtil::Clear()
     lock.unlock();
 }
 
+// 关闭
 void DecodeThreadUtil::Close()
 {
     Clear();

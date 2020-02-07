@@ -19,15 +19,21 @@ public:
 
     virtual ~AudioThreadUtil() override;
 
+    // 音频播放
     void run() override;
 
+    // 初始化
     virtual bool Open(AVCodecParameters* codec_param);
 
+    // 清理
     virtual void Clear() override;
 
+    // 关闭
     virtual void Close() override;
 
+    // 设置暂停
     virtual void SetPause(bool isPause);
+
     bool isPause = false;
     // 作为音画同步值
     long long standard_pts = 0;

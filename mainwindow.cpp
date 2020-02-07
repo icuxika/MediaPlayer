@@ -43,31 +43,39 @@ MainWindow::~MainWindow()
     demuxThreadUtil.Close();
 }
 
+// 打开播放目标文件
 void MainWindow::OpenFile()
 {
-    QString fileUrl = QFileDialog::getOpenFileName(this, QString::fromLocal8Bit("选择视频文件："));
+    QString fileUrl = QFileDialog::getOpenFileName(this, QString::fromLocal8Bit("选择视频文件"));
     if (fileUrl.isEmpty())
     {
         return;
     }
     demuxThreadUtil.StartThreads();
+    // 启动音视频线程
     this->setWindowTitle(fileUrl);
     if (!demuxThreadUtil.Open(fileUrl.toLocal8Bit(), videoPlayWidget))
     {
         QMessageBox::information(nullptr, "ERROR", QString::fromLocal8Bit("无法打开文件"));
         return;
     }
+    // 启用播放暂停按钮
     playOrPauseButton->setEnabled(true);
+    // 根据当前状态判断是否设置暂停（暂时无用）
     SetPause(demuxThreadUtil.isPause);
 }
 
+// 播放和暂停
 void MainWindow::PlayOrPause()
 {
     bool isPause = !demuxThreadUtil.isPause;
+    // 更新播放暂停按钮状态
     SetPause(isPause);
+    // 暂停音视频线程
     demuxThreadUtil.SetPause(isPause);
 }
 
+// 定时刷新播放器进度条
 void MainWindow::timerEvent(QTimerEvent* event)
 {
     if (isProcessBarPress)
@@ -77,15 +85,18 @@ void MainWindow::timerEvent(QTimerEvent* event)
     long long totalMilliseconds = demuxThreadUtil.totalMilliseconds;
     if (totalMilliseconds > 0)
     {
-//        qDebug() << QString::fromLocal8Bit("totalMilliseconds:") << totalMilliseconds << QString::fromLocal8Bit("demuxThreadUtil.pts:") << demuxThreadUtil.pts;
         double pos = (double)demuxThreadUtil.pts / (double)totalMilliseconds;
         int value = progressBar->maximum() * pos;
         progressBar->setValue(value);
     }
 }
+
+// 界面尺寸改变事件
 void MainWindow::resizeEvent(QResizeEvent* event)
 {
 }
+
+// 进入与退出播放器全屏
 void MainWindow::mouseDoubleClickEvent(QMouseEvent* event)
 {
     if (isFullScreen())
@@ -97,6 +108,8 @@ void MainWindow::mouseDoubleClickEvent(QMouseEvent* event)
         this->showFullScreen();
     }
 }
+
+// 设置播放和暂停按钮状态
 void MainWindow::SetPause(bool isPause)
 {
     if (isPause)
@@ -109,16 +122,19 @@ void MainWindow::SetPause(bool isPause)
     }
 }
 
+// 点击进度条（不松）
 void MainWindow::progressBarPress()
 {
     isProcessBarPress = true;
 }
+
+// 快进 点击进度条（松开）
 void MainWindow::progressBarRelease()
 {
     isProcessBarPress = false;
     double pos = 0.0;
     pos = (double)progressBar->value() / (double)progressBar->maximum();
-    qDebug() << QString::fromLocal8Bit("进度条目标位置:") << pos;
+    qDebug() << QString::fromLocal8Bit("进度条目标位置") << pos;
     demuxThreadUtil.Seek(pos);
 }
 

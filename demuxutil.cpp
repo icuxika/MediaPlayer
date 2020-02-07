@@ -101,6 +101,7 @@ AVPacket* DemuxUtil::Read()
     return pkt;
 }
 
+// 只读视频，释放音频
 AVPacket* DemuxUtil::ReadOnlyVideo()
 {
     lock.lock();

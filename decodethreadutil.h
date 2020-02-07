@@ -19,14 +19,19 @@ public:
 
     virtual ~DecodeThreadUtil();
 
+    // 推送AVPacket* pkt到队列
     virtual void Push(AVPacket* pkt);
 
+    // 从队列中取出AVPacket* pkt
     virtual AVPacket* PopPacket();
 
+    // 清理
     virtual void Clear();
 
+    // 关闭
     virtual void Close();
 
+    // AVPacket* pkt队列最大容量
     int maxSize = 100;
     bool isExit = false;
 

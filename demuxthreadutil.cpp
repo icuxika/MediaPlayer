@@ -10,6 +10,7 @@ DemuxThreadUtil::~DemuxThreadUtil()
     wait();
 }
 
+// 打开媒体文件，初始化视频显示组件
 bool DemuxThreadUtil::Open(const char* url, VideoPlayWidget* widget)
 {
     if (url == nullptr || url[0] == '\0')
@@ -52,6 +53,7 @@ bool DemuxThreadUtil::Open(const char* url, VideoPlayWidget* widget)
     return result;
 }
 
+// 启动音视频线程
 void DemuxThreadUtil::StartThreads()
 {
     lock.lock();
@@ -79,6 +81,7 @@ void DemuxThreadUtil::StartThreads()
     lock.unlock();
 }
 
+// 负责推送AVPacket* pkt
 void DemuxThreadUtil::run()
 {
     while (!isExit)
@@ -129,6 +132,7 @@ void DemuxThreadUtil::run()
     }
 }
 
+// 清理
 void DemuxThreadUtil::Clear()
 {
     lock.lock();
@@ -150,6 +154,7 @@ void DemuxThreadUtil::Clear()
     lock.unlock();
 }
 
+// 关闭
 void DemuxThreadUtil::Close()
 {
     isExit = true;
@@ -170,6 +175,7 @@ void DemuxThreadUtil::Close()
     lock.unlock();
 }
 
+// 快进
 void DemuxThreadUtil::Seek(double pos)
 {
     qDebug() << QString::fromLocal8Bit("进入快进");
@@ -211,6 +217,7 @@ void DemuxThreadUtil::Seek(double pos)
     }
 }
 
+// 设置暂停
 void DemuxThreadUtil::SetPause(bool isPause)
 {
     lock.lock();

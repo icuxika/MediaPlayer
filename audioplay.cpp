@@ -8,6 +8,7 @@ public:
     QAudioOutput* output = nullptr;
     QIODevice* device = nullptr;
 
+    // 初始化音频播放
     virtual bool Open(int sampleRate, int sampleSize, int channels)
     {
         Close();
@@ -32,6 +33,7 @@ public:
         return false;
     }
 
+    // 清理
     virtual void Clear()
     {
         lock.lock();
@@ -42,6 +44,7 @@ public:
         lock.unlock();
     }
 
+    // 关闭
     virtual void Close()
     {
         lock.lock();
@@ -58,6 +61,8 @@ public:
         }
         lock.unlock();
     }
+
+    // 播放
     virtual bool Write(const unsigned char* data, int dataSize)
     {
         if (!data || dataSize <= 0)
@@ -78,6 +83,8 @@ public:
         }
         return true;
     }
+
+    // 计算空闲空间
     virtual int GetFree()
     {
         lock.lock();
@@ -91,6 +98,7 @@ public:
         return free;
     }
 
+    // 计算音视频播放进度PTS差值
     virtual long long GetPtsDifference()
     {
         lock.lock();
@@ -117,6 +125,7 @@ public:
         return pts_difference;
     }
 
+    // 设置暂停
     virtual void SetPause(bool isPause)
     {
         lock.lock();
@@ -149,6 +158,7 @@ AudioPlay::~AudioPlay()
 {
 }
 
+// 获取音频播放实例
 AudioPlay* AudioPlay::Get()
 {
     static AudioPlayUtil audioPlayUtil;

@@ -51,3 +51,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 INCLUDEPATH += $$PWD/ffmpeg/include
 LIBS += -L$$PWD/ffmpeg/lib -lavcodec -lavdevice -lavfilter -lavformat -lavutil -lpostproc -lswresample -lswscale
+
+
+RC_ICONS = MediaPlayer.ico
+VERSION = 0.9.0

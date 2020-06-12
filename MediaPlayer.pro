@@ -50,8 +50,15 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 INCLUDEPATH += $$PWD/ffmpeg/include
-LIBS += -L$$PWD/ffmpeg/lib -lavcodec -lavdevice -lavfilter -lavformat -lavutil -lpostproc -lswresample -lswscale
 
+win32 {
+    LIBS += -L$$PWD/ffmpeg/lib -lavcodec -lavdevice -lavfilter -lavformat -lavutil -lpostproc -lswresample -lswscale
+}
+
+macx {
+#    LIBS += `pkg-config --libs libavcodec libavdevice libavfilter libavformat libavresample libavutil libpostproc libswresample libswscale`
+    LIBS += -L/usr/local/Cellar/ffmpeg/4.2.2_3/lib -lavcodec -lavdevice -lavfilter -lavformat -lavresample -lavutil -lpostproc -lswresample -lswscale
+}
 
 RC_ICONS = MediaPlayer.ico
 VERSION = 0.9.0

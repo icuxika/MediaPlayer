@@ -7,3 +7,6 @@ ffmpeg/
 .vscode/
 
 .DS_Store
+out
+build
+compile_commands.json
